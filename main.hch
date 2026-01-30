@@ -1,0 +1,10 @@
+program main start
+	
+	def int Pizza
+	set Pizza 10
+	
+	
+program main end
+
+
+
