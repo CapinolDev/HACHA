@@ -26,7 +26,7 @@ while (my $line = <$fh>) {
 	$line =~ s/\s+$//;
 	next if $line eq "";
 	$line =~ tr/a-z/A-Z/;
-	@lineParts = split(' ', $line);
+	@lineParts = $line =~ /("[^"]*"|\S+)/g;
 	{	
 	if ($lineParts[0] eq "PROGRAM") {
 			if ($lineParts[2] eq "START") {
@@ -44,7 +44,7 @@ while (my $line = <$fh>) {
 				print $fh2 "END PROGRAM $currentProg\n";
 			}
 	}
-	if ($lineParts[0] eq "DEF") {
+	elsif ($lineParts[0] eq "DEF") {
 		if ($lineParts[1] eq "INT") {
 			print $fh2 "INTEGER :: $lineParts[2]\n";
 			}
@@ -61,7 +61,7 @@ while (my $line = <$fh>) {
 			die "ERR: Invalid type $lineParts[1]\n";
 			}
 		}
-	if ($lineParts[0] eq "ARR") {
+	elsif ($lineParts[0] eq "ARR") {
 		if ($lineParts[1] eq "INT") {
 			print $fh2 "INTEGER, DIMENSION($lineParts[3]) :: $lineParts[2]\n";
 			}
@@ -78,9 +78,49 @@ while (my $line = <$fh>) {
 			die "ERR: invalid type $lineParts[1]\n";
 			}
 		}
-		
+	elsif($lineParts[0] eq "SET") {
+		print $fh2 "$lineParts[1] = $lineParts[2]\n";
+		}
+	elsif($lineParts[0] eq "PRINT") {
+		if(substr($lineParts[1], 0, 1) eq "\"") {
+			print $fh2 "WRITE(*,'(A)', ADVANCE='NO') $lineParts[1]\n";
+			}
+		else {
+			print $fh2 "WRITE(*,'($lineParts[2])', ADVANCE='NO') $lineParts[1]\n";
+			}
+		}
+	elsif($lineParts[0] eq "INPUT") {
+			print $fh2 "READ(*,*) $lineParts[1]\n"
+		}	
+	elsif($lineParts[0] eq "NEWLINE") {
+		print $fh2 "WRITE(*,*) \"\"\n";
+		}
+	elsif($lineParts[0] eq "AS"){
+		print $fh2 "IF ($lineParts[1] $lineParts[2] $lineParts[3]) THEN\n";
+		}
+	elsif($lineParts[0] eq "AS}"){
+		print $fh2 "END IF\n";
+		}
+	elsif($lineParts[0] eq "LOOP"){
+		print $fh2 "DO\n";
+		}
+	elsif($lineParts[0] eq "LOOPEND"){
+		print $fh2 "END DO\n";
+		}
+	
+	else {
+		die "Unknown command $lineParts[0]\n";
+		}
 	
 	}
-	
 }
-close($fh)
+close($fh);
+print "Compiling $outputFilename with gfortran..\n";
+my $exeName = $tempOFileGen[0];
+my $exitCode = system("gfortran", $outputFilename, "-o", $exeName);
+if ($exitCode == 0) {
+    print "Compilation successful! Executable created: $exeName\n";
+} else {
+    die "Compilation failed with exit code: $exitCode\n";
+}
+

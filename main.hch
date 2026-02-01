@@ -1,10 +1,12 @@
 program main start
-	
-	def int Pizza
-	set Pizza 10
-	
-	
+	def str userInput 1
+	loop
+	input userInput
+	print userInput A
+	newline
+	as userInput == "A" {
+		print "bruh"
+		newline
+	as}
+	loopend
 program main end
-
-
-

@@ -20,16 +20,17 @@ indent_mode=2
 [project]
 name=HACHA
 base_path=/home/erdinc/projects/HACHA/
+description=
 
 [long line marker]
 long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=1
-FILE_NAME_0=1399;Perl;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.pl;0;4
-FILE_NAME_1=49;None;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.hch;0;4
-FILE_NAME_2=104;Fortran;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.f95;0;4
+current_page=2
+FILE_NAME_0=2900;Perl;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.pl;0;4
+FILE_NAME_1=152;None;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.hch;0;4
+FILE_NAME_2=0;Fortran;0;EUTF-8;1;1;0;%2Fhome%2Ferdinc%2Fprojects%2FHACHA%2Fmain.f95;0;4
 
 [VTE]
 last_dir=/home/erdinc/projects/HACHA
