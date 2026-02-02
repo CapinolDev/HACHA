@@ -1,12 +1,22 @@
 program main start
-	def str userInput 1
-	loop
-	input userInput
-	print userInput A
-	newline
-	as userInput == "A" {
-		print "bruh"
-		newline
-	as}
+	
+	window init 500 500 "Game"
+	
+	gameloop
+		initdraw
+		bgclear WHITE
+		window draw
+		als key w {
+			drawtext "WDOWN" 100 100 40 BLACK
+		as}
+		als key r {
+			drawtext "RDOWN" 100 100 40 BLACK
+		as}
+		als mouse right {
+			die 1
+		as}
+		enddraw
+		
 	loopend
+	window close
 program main end
